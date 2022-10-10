@@ -423,6 +423,12 @@ def create(
     path = cache_location(path, env, version)
     if isinstance(allow_updates, str):
         allow_updates = os.environ.get(allow_updates, "true").lower() != "false"
+
+    # Ensure that URLs end on a trailing slash as some library
+    # code depends on this.
+    if base_url[-1] != "/":
+        base_url = base_url + "/"
+
     pup = Pooch(
         path=path,
         base_url=base_url,
