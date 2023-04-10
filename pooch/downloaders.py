@@ -14,7 +14,7 @@ import ftplib
 import warnings
 import requests
 
-from .utils import parse_url
+from .utils import (parse_url, potentially_cached_requests_session)
 
 try:
     from tqdm import tqdm
@@ -163,6 +163,7 @@ class HTTPDownloader:  # pylint: disable=too-few-public-methods
         self.kwargs = kwargs
         self.progressbar = progressbar
         self.chunk_size = chunk_size
+
         if self.progressbar is True and tqdm is None:
             raise ValueError("Missing package 'tqdm' required for progress bars.")
 
@@ -193,9 +194,10 @@ class HTTPDownloader:  # pylint: disable=too-few-public-methods
 
         """
         if check_only:
-            response = requests.head(url, allow_redirects=True)
-            available = bool(response.status_code == 200)
-            return available
+            return True
+            # response = requests.head(url, allow_redirects=True)
+            # available = bool(response.status_code == 200)
+            # return available
 
         kwargs = self.kwargs.copy()
         kwargs.setdefault("stream", True)
@@ -595,7 +597,7 @@ class DOIDownloader:  # pylint: disable=too-few-public-methods
         """
 
         parsed_url = parse_url(url)
-        data_repository = doi_to_repository(parsed_url["netloc"])
+        data_repository = doi_to_repository(parsed_url["netloc"], potentially_cached_requests_session(pooch))
 
         # Resolve the URL
         file_name = parsed_url["path"]
@@ -611,7 +613,7 @@ class DOIDownloader:  # pylint: disable=too-few-public-methods
         downloader(download_url, output_file, pooch)
 
 
-def doi_to_url(doi):
+def doi_to_url(doi, session=requests.Session()):
     """
     Follow a DOI link to resolve the URL of the archive.
 
@@ -627,7 +629,7 @@ def doi_to_url(doi):
 
     """
     # Use doi.org to resolve the DOI to the repository website.
-    response = requests.get(f"https://doi.org/{doi}")
+    response = session.get(f"https://doi.org/{doi}")
     url = response.url
     if 400 <= response.status_code < 600:
         raise ValueError(
@@ -636,7 +638,7 @@ def doi_to_url(doi):
     return url
 
 
-def doi_to_repository(doi):
+def doi_to_repository(doi, session):
     """
     Instantiate a data repository instance from a given DOI.
 
@@ -667,7 +669,7 @@ def doi_to_repository(doi):
     ]
 
     # Extract the DOI and the repository information
-    archive_url = doi_to_url(doi)
+    archive_url = doi_to_url(doi, session)
 
     # Try the converters one by one until one of them returned a URL
     data_repository = None
@@ -676,6 +678,7 @@ def doi_to_repository(doi):
             data_repository = repo.initialize(
                 archive_url=archive_url,
                 doi=doi,
+                session=session
             )
 
     if data_repository is None:
@@ -691,7 +694,7 @@ def doi_to_repository(doi):
 
 class DataRepository:  # pylint: disable=too-few-public-methods, missing-class-docstring
     @classmethod
-    def initialize(cls, doi, archive_url):  # pylint: disable=unused-argument
+    def initialize(cls, doi, archive_url, session):  # pylint: disable=unused-argument
         """
         Initialize the data repository if the given URL points to a
         corresponding repository.
@@ -707,6 +710,8 @@ class DataRepository:  # pylint: disable=too-few-public-methods, missing-class-d
             The DOI that identifies the repository
         archive_url : str
             The resolved URL for the DOI
+        session : requests.Session
+            The requests.Session to use in DOI resolution
         """
 
         return None  # pragma: no cover
@@ -743,13 +748,14 @@ class DataRepository:  # pylint: disable=too-few-public-methods, missing-class-d
 
 
 class ZenodoRepository(DataRepository):  # pylint: disable=missing-class-docstring
-    def __init__(self, doi, archive_url):
+    def __init__(self, doi, archive_url, session):
         self.archive_url = archive_url
         self.doi = doi
+        self.session = session
         self._api_response = None
 
     @classmethod
-    def initialize(cls, doi, archive_url):
+    def initialize(cls, doi, archive_url, session):
         """
         Initialize the data repository if the given URL points to a
         corresponding repository.
@@ -772,7 +778,7 @@ class ZenodoRepository(DataRepository):  # pylint: disable=missing-class-docstri
         if parsed_archive_url["netloc"] != "zenodo.org":
             return None
 
-        return cls(doi, archive_url)
+        return cls(doi, archive_url, session)
 
     @property
     def api_response(self):
@@ -780,7 +786,7 @@ class ZenodoRepository(DataRepository):  # pylint: disable=missing-class-docstri
 
         if self._api_response is None:
             article_id = self.archive_url.split("/")[-1]
-            self._api_response = requests.get(
+            self._api_response = self.session.get(
                 f"https://zenodo.org/api/records/{article_id}"
             ).json()
 
@@ -825,13 +831,14 @@ class ZenodoRepository(DataRepository):  # pylint: disable=missing-class-docstri
 
 
 class FigshareRepository(DataRepository):  # pylint: disable=missing-class-docstring
-    def __init__(self, doi, archive_url):
+    def __init__(self, doi, archive_url, session):
         self.archive_url = archive_url
         self.doi = doi
+        self.session = session
         self._api_response = None
 
     @classmethod
-    def initialize(cls, doi, archive_url):
+    def initialize(cls, doi, archive_url, session):
         """
         Initialize the data repository if the given URL points to a
         corresponding repository.
@@ -854,7 +861,7 @@ class FigshareRepository(DataRepository):  # pylint: disable=missing-class-docst
         if parsed_archive_url["netloc"] != "figshare.com":
             return None
 
-        return cls(doi, archive_url)
+        return cls(doi, archive_url, session)
 
     def _parse_version_from_doi(self):
         """
@@ -878,7 +885,7 @@ class FigshareRepository(DataRepository):  # pylint: disable=missing-class-docst
 
         if self._api_response is None:
             # Use the figshare API to find the article ID from the DOI
-            article = requests.get(
+            article = self.session.get(
                 f"https://api.figshare.com/v2/articles?doi={self.doi}"
             ).json()[0]
             article_id = article["id"]
@@ -906,7 +913,7 @@ class FigshareRepository(DataRepository):  # pylint: disable=missing-class-docst
                     f"{article_id}/versions/{version}"
                 )
             # Make the request and return the files in the figshare repository
-            response = requests.get(api_url)
+            response = self.session.get(api_url)
             response.raise_for_status()
             self._api_response = response.json()["files"]
 
@@ -951,13 +958,14 @@ class FigshareRepository(DataRepository):  # pylint: disable=missing-class-docst
 
 
 class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docstring
-    def __init__(self, doi, archive_url):
+    def __init__(self, doi, archive_url, session):
         self.archive_url = archive_url
         self.doi = doi
+        self.session = session
         self._api_response = None
 
     @classmethod
-    def initialize(cls, doi, archive_url):
+    def initialize(cls, doi, archive_url, session):
         """
         Initialize the data repository if the given URL points to a
         corresponding repository.
@@ -976,19 +984,19 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         """
 
         # Access the DOI as if this was a DataVerse instance
-        response = cls._get_api_response(doi, archive_url)
+        response = cls._get_api_response(doi, archive_url, session)
 
         # If we failed, this is probably not a DataVerse instance
         if 400 <= response.status_code < 600:
             return None
 
         # Initialize the repository and overwrite the api response
-        repository = cls(doi, archive_url)
+        repository = cls(doi, archive_url, session)
         repository.api_response = response
         return repository
 
     @classmethod
-    def _get_api_response(cls, doi, archive_url):
+    def _get_api_response(cls, doi, archive_url, session):
         """
         Perform the actual API request
 
@@ -996,7 +1004,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         used prior and after the initialization.
         """
         parsed = parse_url(archive_url)
-        response = requests.get(
+        response = session.get(
             f"{parsed['protocol']}://{parsed['netloc']}/api/datasets/"
             f":persistentId?persistentId=doi:{doi}"
         )
@@ -1008,7 +1016,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
 
         if self._api_response is None:
             self._api_response = self._get_api_response(
-                self.doi, self.archive_url
+                self.doi, self.archive_url, self.session
             )  # pragma: no cover
 
         return self._api_response

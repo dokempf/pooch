@@ -7,9 +7,11 @@
 """
 Utilities for testing code.
 """
+import contextlib
 import os
 import io
 import logging
+import pytest_socket
 import shutil
 import stat
 from pathlib import Path
@@ -236,3 +238,20 @@ def mirror_directory(source, destination):
     shutil.copytree(source, mirror)
     _recursive_chmod_directories(mirror, mode=stat.S_IWUSR)
     return mirror
+
+
+@contextlib.contextmanager
+def without_network():
+    """
+    Context manager that prohibits network access
+
+    This is useful in testing features which are explicitly intended
+    for offline usage. If network accesses happen in the scope of the
+    context manager, an exception is thrown.
+    """
+
+    pytest_socket.disable_socket()
+    try:
+        yield
+    finally:
+        pytest_socket.enable_socket()

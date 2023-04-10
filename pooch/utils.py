@@ -11,6 +11,8 @@ import logging
 import os
 import tempfile
 import hashlib
+import requests
+
 from pathlib import Path
 from urllib.parse import urlsplit
 from contextlib import contextmanager
@@ -345,3 +347,18 @@ def unique_file_name(url):
     fname = fname[-(255 - len(md5) - 1) :]
     unique_name = f"{md5}-{fname}"
     return unique_name
+
+
+def potentially_cached_requests_session(pup):
+    """Instantiate a session object that maybe uses a cache stored with the pooch"""
+
+    # If no Pooch instance was given, we cannot connect a request cache
+    if pup is None:
+        return requests.Session()
+
+    # Find the requests cache if the [offline] extra was installed
+    try:
+        import requests_cache
+        return requests_cache.CachedSession(pup.abspath / ".requests", backend="filesystem", serializer="json")
+    except ImportError:
+        return requests.Session()

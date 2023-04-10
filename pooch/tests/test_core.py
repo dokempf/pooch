@@ -10,6 +10,8 @@ Test the core class and factory function.
 """
 import hashlib
 import os
+import shutil
+
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -35,6 +37,7 @@ from .utils import (
     check_large_data,
     capture_log,
     mirror_directory,
+    without_network,
 )
 
 DATA_DIR = str(Path(__file__).parent / "data")
@@ -678,3 +681,68 @@ def test_wrong_load_registry_from_doi():
         pup.load_registry_from_doi()
 
     assert "only implemented for DOIs" in str(exc.value)
+
+
+@pytest.mark.network
+def test_relocation_to_airgapped_system():
+    """Ensure that caches are relocatable and usable without network access"""
+
+    # Create a temporary directory where we are building a cache
+    with TemporaryDirectory() as local_store:
+        path1 = Path(local_store)
+        pup = Pooch(path=path1, base_url=BASEURL, registry=REGISTRY)
+        pup.fetch("tiny-data.txt")
+
+        # Try accessing the data without network
+        with without_network():
+            # Add a second "air-gapped" temporary directory
+            with TemporaryDirectory() as airgap_store:
+                path2 = Path(airgap_store)
+                pup2 = Pooch(path=path2, base_url=BASEURL, registry=REGISTRY)
+
+                # Copy data from cache to cache
+                for fname in os.listdir(path1):
+                    if os.path.isdir(path1 / fname):
+                        shutil.copytree(path1 / fname, path2 / fname)
+                    else:
+                        shutil.copy2(path1 / fname, path2 / fname)
+
+                fname = pup2.fetch("tiny-data.txt")
+                check_tiny_data(fname)
+
+
+@pytest.mark.network
+@pytest.mark.parametrize(
+    "url",
+    [ZENODOURL, DATAVERSEURL],
+    ids=["zenodo", "dataverse"],
+)
+def test_relocation_to_airgapped_system_with_dois(url):
+    """Ensure that caches are relocatable and usable without network access"""
+
+    # Create a temporary directory where we are building a cache
+    with TemporaryDirectory() as local_store:
+        path1 = Path(local_store)
+        pup = Pooch(path=path1, base_url=url)
+        pup.load_registry_from_doi()
+        pup.fetch("tiny-data.txt")
+
+        # Add a second "air-gapped" temporary directory
+        with without_network():
+            with TemporaryDirectory() as airgap_store:
+                path2 = Path(airgap_store)
+
+                # Copy data from cache to cache
+                for fname in os.listdir(path1):
+                    if os.path.isdir(path1 / fname):
+                        shutil.copytree(path1 / fname, path2 / fname)
+                    else:
+                        shutil.copy2(path1 / fname, path2 / fname)
+
+                # Instantiate the second pooch instance
+                pup2 = Pooch(path=path2, base_url=url)
+                pup2.load_registry_from_doi()
+
+                # Try accessing the data without network
+                fname = pup2.fetch("tiny-data.txt")
+                check_tiny_data(fname)

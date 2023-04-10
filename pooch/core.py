@@ -26,6 +26,7 @@ from .utils import (
     temporary_file,
     os_cache,
     unique_file_name,
+    potentially_cached_requests_session,
 )
 from .downloaders import DOIDownloader, choose_downloader, doi_to_repository
 
@@ -263,6 +264,7 @@ def create(
     urls=None,
     retry_if_failed=0,
     allow_updates=True,
+    session=None,
 ):
     """
     Create a :class:`~pooch.Pooch` with sensible defaults to fetch data files.
@@ -334,6 +336,9 @@ def create(
         will be checked for the true/false value. If ``False``, any mismatch
         with hashes in the registry will result in an error. Defaults to
         ``True``.
+    session : requests.Session
+        A requests session to use for any HTTP requests used by this pooch object.
+
 
     Returns
     -------
@@ -507,7 +512,7 @@ class Pooch:
         "List of file names on the registry"
         return list(self.registry)
 
-    def fetch(self, fname, processor=None, downloader=None, progressbar=False):
+    def fetch(self, fname=None, processor=None, downloader=None, progressbar=False):
         """
         Get the absolute path to a file in the local storage.
 
@@ -534,9 +539,10 @@ class Pooch:
 
         Parameters
         ----------
-        fname : str
+        fname : None or str
             The file name (relative to the *base_url* of the remote data
-            storage) to fetch from the local storage.
+            storage) to fetch from the local storage. If fname is None, all
+            files from the registry will be downloaded.
         processor : None or callable
             If not None, then a function (or callable object) that will be
             called before returning the full path and after the file has been
@@ -558,6 +564,21 @@ class Pooch:
             local storage.
 
         """
+
+        # Check whether we need to download all files
+        if fname is None:
+            if processor is not None:
+                raise ValueError(
+                    "Downloading the entire registry is incompatible with processors"
+                )
+
+            # Collect the list of returned files
+            filenames = []
+            for filename in self.registry:
+                filenames.append(self.fetch(filename, downloader=downloader))
+
+            return filenames
+
         self._assert_file_in_registry(fname)
 
         # Create the local data directory if it doesn't already exist
@@ -697,7 +718,7 @@ class Pooch:
 
         # Create a repository instance
         doi = self.base_url.replace("doi:", "")
-        repository = doi_to_repository(doi)
+        repository = doi_to_repository(doi, potentially_cached_requests_session(self))
 
         # Call registry population for this repository
         return repository.populate_registry(self)

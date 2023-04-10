@@ -8,6 +8,7 @@
 Test the downloader classes and functions separately from the Pooch core.
 """
 import os
+import requests
 import sys
 from tempfile import TemporaryDirectory
 
@@ -115,7 +116,7 @@ def test_figshare_url_file_not_found(repository, doi):
     "Should fail if the file is not found in the archive"
     with pytest.raises(ValueError) as exc:
         url = doi_to_url(doi)
-        repo = repository.initialize(doi, url)
+        repo = repository.initialize(doi, url, requests.Session())
         repo.download_url(file_name="bla.txt")
     assert "File 'bla.txt' not found" in str(exc.value)
 
@@ -198,7 +199,7 @@ def test_figshare_data_repository_versions(version, missing, present):
     # they are too big)
     doi = f"10.6084/m9.figshare.21665630.v{version}"
     url = f"https://doi.org/{doi}/"
-    figshare = FigshareRepository(doi, url)
+    figshare = FigshareRepository(doi, url, requests.Session())
     filenames = [item["name"] for item in figshare.api_response]
     assert present in filenames
     assert missing not in filenames
