@@ -2,7 +2,9 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,39 +12,45 @@
         <title>pooch.hashes | Pooch dev</title>
     
 
-    
-  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    
-      
-  <link rel="stylesheet"
-    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=63f081c0" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.c441f2ba0852f4cabcb80105e3a46ae6.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.87249bd3f7b54630a2508c1b61607c7f.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
-    
-  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
-
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pooch/hashes';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -50,370 +58,299 @@
     <script defer data-domain="fatiando.org" src="https://plausible.io/js/plausible.js"></script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
     
-        <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../../index.html">
-  
-  <img src="../../_static/pooch-logo.png" class="logo" alt="logo">
-  
-  
-  <h1 class="site-logo" id="site-title">Pooch <span class="project-version">dev</span></h1>
-  
-</a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-    <ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Pooch Documentation
-  </a>
- </li>
-</ul>
-<p class="caption collapsible-parent">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../about.html">
-   Why use Pooch?
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../install.html">
-   Installing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../retrieve.html">
-   Retrieving a single data file
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../multiple-files.html">
-   Fetching files from a registry
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../sample-data.html">
-   Manage a package’s sample data
-  </a>
- </li>
-</ul>
-<p class="caption collapsible-parent">
- <span class="caption-text">
-  Training your Pooch
- </span>
-</p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../hashes.html">
-   Hashes: Calculating and bypassing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../user-defined-cache.html">
-   User-defined cache location
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../registry-files.html">
-   Registry files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../multiple-urls.html">
-   Multiple download URLs
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../protocols.html">
-   Download protocols
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../logging.html">
-   Logging and verbosity
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../downloaders.html">
-   Downloaders: Customizing the download
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../processors.html">
-   Processors: Post-download actions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../authentication.html">
-   Authentication
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../progressbars.html">
-   Printing progress bars
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../unpacking.html">
-   Unpacking archives
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../decompressing.html">
-   Decompressing
-  </a>
- </li>
-</ul>
-<p class="caption collapsible-parent">
- <span class="caption-text">
-  Reference
- </span>
-</p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../../api/index.html">
-   List of functions and classes (API)
-  </a>
-  <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.create.html">
-     pooch.create
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.Pooch.html">
-     pooch.Pooch
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.retrieve.html">
-     pooch.retrieve
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.os_cache.html">
-     pooch.os_cache
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.make_registry.html">
-     pooch.make_registry
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.file_hash.html">
-     pooch.file_hash
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.check_version.html">
-     pooch.check_version
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.get_logger.html">
-     pooch.get_logger
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.HTTPDownloader.html">
-     pooch.HTTPDownloader
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.FTPDownloader.html">
-     pooch.FTPDownloader
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.SFTPDownloader.html">
-     pooch.SFTPDownloader
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.DOIDownloader.html">
-     pooch.DOIDownloader
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.Unzip.html">
-     pooch.Unzip
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.Untar.html">
-     pooch.Untar
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.Decompress.html">
-     pooch.Decompress
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/generated/pooch.test.html">
-     pooch.test
-    </a>
-   </li>
-  </ul>
-  <i class="fas fa-chevron-down">
-  </i>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../compatibility.html">
-   Version compatibility
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../citing.html">
-   Citing Pooch
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../changes.html">
-   Changelog
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../versions.html">
-   Documentation for other versions
-  </a>
- </li>
-</ul>
-<p class="caption collapsible-parent">
- <span class="caption-text">
-  Community
- </span>
-</p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference external" href="https://www.fatiando.org/contact/">
-   Join the community
-   <i class="fas fa-external-link-alt">
-   </i>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://github.com/fatiando/community/blob/main/CODE_OF_CONDUCT.md">
-   Code of Conduct
-   <i class="fas fa-external-link-alt">
-   </i>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://github.com/fatiando/pooch/blob/main/CONTRIBUTING.md">
-   How to contribute
-   <i class="fas fa-external-link-alt">
-   </i>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://github.com/fatiando/pooch">
-   Source code on GitHub
-   <i class="fas fa-external-link-alt">
-   </i>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://github.com/fatiando/pooch/blob/main/AUTHORS.md">
-   Authors
-   <i class="fas fa-external-link-alt">
-   </i>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://www.fatiando.org">
-   Fatiando a Terra
-   <i class="fas fa-external-link-alt">
-   </i>
-  </a>
- </li>
-</ul>
+  </dialog>
 
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
 
-</div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
 
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
 
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-            <!-- Source interaction buttons -->
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/fatiando/pooch"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/fatiando/pooch/issues/new?title=Issue%20on%20page%20%2F_modules/pooch/hashes.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pooch <span class="project-version">dev</span></p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Why use Pooch?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../retrieve.html">Retrieving a single data file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../multiple-files.html">Fetching files from a registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sample-data.html">Manage a package’s sample data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Training your Pooch</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../hashes.html">Hashes: Calculating and bypassing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user-defined-cache.html">User-defined cache location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../registry-files.html">Registry files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../multiple-urls.html">Multiple download URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../protocols.html">Download protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging and verbosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../downloaders.html">Downloaders: Customizing the download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../processors.html">Processors: Post-download actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../progressbars.html">Printing progress bars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unpacking.html">Unpacking archives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../decompressing.html">Decompressing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/index.html">List of functions and classes (API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.create.html">pooch.create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.Pooch.html">pooch.Pooch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.retrieve.html">pooch.retrieve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.os_cache.html">pooch.os_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.make_registry.html">pooch.make_registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.file_hash.html">pooch.file_hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.check_version.html">pooch.check_version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.get_logger.html">pooch.get_logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.HTTPDownloader.html">pooch.HTTPDownloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.FTPDownloader.html">pooch.FTPDownloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.SFTPDownloader.html">pooch.SFTPDownloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.DOIDownloader.html">pooch.DOIDownloader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.Unzip.html">pooch.Unzip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.Untar.html">pooch.Untar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.Decompress.html">pooch.Decompress</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/generated/pooch.test.html">pooch.test</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compatibility.html">Version compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citing.html">Citing Pooch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">Documentation for other versions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://www.fatiando.org/contact/">Join the community</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/fatiando/community/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/fatiando/pooch/blob/main/CONTRIBUTING.md">How to contribute</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/fatiando/pooch">Source code on GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/fatiando/pooch/blob/main/AUTHORS.md">Authors</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.fatiando.org">Fatiando a Terra</a></li>
+</ul>
+
     </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/fatiando/pooch" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/fatiando/pooch/issues/new?title=Issue%20on%20page%20%2F_modules/pooch/hashes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
-            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                    title="Fullscreen mode"><i
-                        class="fas fa-expand"></i></button></a>
 
-            <!-- Launch buttons -->
 
-        </div>
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for pooch.hashes</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Copyright (c) 2018 The Pooch Developers.</span>
 <span class="c1"># Distributed under the terms of the BSD 3-Clause License.</span>
@@ -457,8 +394,10 @@
     <span class="k">pass</span>
 
 
-<div class="viewcode-block" id="file_hash"><a class="viewcode-back" href="../../api/generated/pooch.file_hash.html#pooch.file_hash">[docs]</a><span class="k">def</span> <span class="nf">file_hash</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">alg</span><span class="o">=</span><span class="s2">&quot;sha256&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="file_hash">
+<a class="viewcode-back" href="../../api/generated/pooch.file_hash.html#pooch.file_hash">[docs]</a>
+<span class="k">def</span> <span class="nf">file_hash</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">alg</span><span class="o">=</span><span class="s2">&quot;sha256&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the hash of a given file.</span>
 
 <span class="sd">    Useful for checking if a file has changed or been corrupted.</span>
@@ -504,8 +443,9 @@
     <span class="k">return</span> <span class="n">hasher</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
 
 
+
 <span class="k">def</span> <span class="nf">hash_algorithm</span><span class="p">(</span><span class="n">hash_string</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse the name of the hash method from the hash string.</span>
 
 <span class="sd">    The hash string should have the following form ``algorithm:hash``, where</span>
@@ -552,7 +492,7 @@
 
 
 <span class="k">def</span> <span class="nf">hash_matches</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">known_hash</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if the hash of a file matches a known hash.</span>
 
 <span class="sd">    If the *known_hash* is None, will always return True.</span>
@@ -599,8 +539,10 @@
     <span class="k">return</span> <span class="n">matches</span>
 
 
-<div class="viewcode-block" id="make_registry"><a class="viewcode-back" href="../../api/generated/pooch.make_registry.html#pooch.make_registry">[docs]</a><span class="k">def</span> <span class="nf">make_registry</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="make_registry">
+<a class="viewcode-back" href="../../api/generated/pooch.make_registry.html#pooch.make_registry">[docs]</a>
+<span class="k">def</span> <span class="nf">make_registry</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make a registry of files and hashes for the given directory.</span>
 
 <span class="sd">    This is helpful if you have many files in your test dataset as it keeps you</span>
@@ -625,51 +567,84 @@
         <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
 
     <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span>
-            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">directory</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
-        <span class="p">]</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">directory</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
     <span class="p">)</span>
 
     <span class="n">hashes</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_hash</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">directory</span> <span class="o">/</span> <span class="n">fname</span><span class="p">))</span> <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">fname</span><span class="p">,</span> <span class="n">fhash</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">hashes</span><span class="p">):</span>
             <span class="c1"># Only use Unix separators for the registry so that we don&#39;t go</span>
             <span class="c1"># insane dealing with file paths.</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">),</span> <span class="n">fhash</span><span class="p">))</span></div>
+
 </pre></div>
 
-              </div>
+                </article>
               
-        
-        <div class='prev-next-bottom'>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
             
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
 
-        </div>
+  <p class="copyright">
+    
+      © Copyright 2024, The Pooch Developers.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Nov 25, 2024.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
         
-        </div>
+
+      </main>
     </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-            &copy; Copyright 2022, The Pooch Developers.<br/>
-          Last updated on Jan 24, 2022.<br/>
-      </p>
-    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
   </footer>
-</main>
-
-
-      </div>
-    </div>
-
-    
-  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
-
-
-    
   </body>
 </html>
